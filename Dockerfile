@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
 # Installer les dépendances
-RUN apt update && apt install -y \
-    g++ \
+RUN apt update
+RUN apt install -y g++ \
     make \
     pkg-config \
     libgstreamer1.0-dev \
@@ -25,4 +25,5 @@ COPY . .
 RUN make
 
 # Exécuter l'application par défaut
-CMD ["./GStreamerApp"]
+# CMD ["./GStreamerApp"]
+CMD ["/bin/bash"]

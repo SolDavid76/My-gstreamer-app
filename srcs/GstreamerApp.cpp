@@ -17,19 +17,15 @@ GstreamerApp::GstreamerApp()
 	this->pipeline = gst_pipeline_new("pipeline");
 	this->source = gst_element_factory_make("v4l2src", "source");
 	this->decoder = gst_element_factory_make("decodebin", "decoder");
-	// this->filter = gst_element_factory_make("capsfilter", "filter");
-	// this->cropFilter = gst_element_factory_make("videocrop", "cropFilter");
-	// this->filter = gst_element_factory_make("videoconvert", "filter");
 	this->sink = gst_element_factory_make("autovideosink", "sink");
 
-	if (!pipeline || !source || !decoder || !sink) // || !cropFilter || !filter
+	if (!pipeline || !source || !decoder || !sink)
 		throw ft_exception("Not all elements could be created.");
 
-	gst_bin_add_many(GST_BIN(pipeline), source, decoder, sink, NULL); // , filter, cropFilter
-	if (!gst_element_link_many(source, decoder, NULL)) // , filter, cropFilter
+	gst_bin_add_many(GST_BIN(pipeline), source, decoder, sink, NULL);
+	if (!gst_element_link_many(source, decoder, NULL))
 		throw ft_exception("Elements could not be linked.");
 	g_signal_connect(decoder, "pad-added", G_CALLBACK(on_pad_added), sink);
-	// this->bus =  gst_element_get_bus(pipeline);
 }
 
 GstreamerApp::GstreamerApp(GstreamerApp const& src)

@@ -8,10 +8,6 @@
 #include <exception>
 #include <vector>
 
-#include <unistd.h>
-#include <signal.h>
-
-
 class GstreamerApp
 {
 	public:

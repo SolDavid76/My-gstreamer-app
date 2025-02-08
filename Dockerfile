@@ -1,6 +1,5 @@
 FROM ubuntu:22.04
 
-# Installer les dépendances
 RUN apt update
 RUN apt install -y g++ \
     make \
@@ -15,15 +14,10 @@ RUN apt install -y g++ \
     libglib2.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Définir le dossier de travail
 WORKDIR /app
 
-# Copier les fichiers source et Makefile
 COPY . .
 
-# Compiler ton application avec Makefile
 RUN make
 
-# Exécuter l'application par défaut
-# CMD ["./GStreamerApp"]
 CMD ["/bin/bash"]

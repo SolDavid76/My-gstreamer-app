@@ -2,6 +2,7 @@ SRCS_DIR	= srcs/
 
 SRC			=	main.cpp\
 				GstreamerApp.cpp\
+				utils.cpp\
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
 
@@ -17,7 +18,7 @@ NAME		=	a.out
 
 CC			=	g++
 
-CCFLAGS		=	-g3 -Wall -Wextra -std=c++11 `pkg-config --cflags gstreamer-1.0`
+CCFLAGS		=	-Wall -Wextra -std=c++11 `pkg-config --cflags gstreamer-1.0`
 
 LDFLAGS		=	`pkg-config --libs gstreamer-1.0`
 
@@ -40,4 +41,19 @@ fclean: clean
 
 re:		fclean all
 
-.PHONY:	all clean fclean re
+build:
+	docker build -t gstreamer-app .
+
+run:
+	docker run --rm -it \
+		--network=host \
+		--device /dev/video0 \
+		-e DISPLAY=$$DISPLAY \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v $(shell pwd):/app \
+		gstreamer-app
+
+copy:
+	docker cp $(shell docker create gstreamer-app):/app/$(NAME) ./$(NAME)
+
+.PHONY:	all clean fclean re build run copy

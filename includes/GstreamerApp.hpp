@@ -17,11 +17,12 @@ class GstreamerApp
 		GstreamerApp& operator=(GstreamerApp const& src);
 		~GstreamerApp();
 
+		void printHelp(void);
 		void handleUser(void);
-	// private:
-		void setSource(int ac, char **av);
 		void setPipelineState(GstState state);
-		void setZoom(int zoomLevel);
+	private:
+		void setSource(int ac, char **av);
+		int  setZoom(int zoomLevel);
 
 		int			width;
 		int			height;
@@ -29,11 +30,11 @@ class GstreamerApp
 		GstElement	*pipeline;
 		GstElement	*source;
 		GstElement	*decoder;
-		GstElement	*crop;
-		GstElement	*scale;
+		GstElement	*cropFilter;
+		GstElement	*scaleFilter;
 		GstElement	*textoverlay;
 		GstElement	*capsfilter;
-		GstElement 	*sink;
+		GstElement	*sink;
 		GstBus		*bus;
 };
 
@@ -48,7 +49,12 @@ class ft_exception: public std::exception
 };
 
 /* main.cpp */
-std::string ft_getline(void);
-std::vector<std::string> ft_split(std::string input);
+void on_pad_added(GstElement *element, GstPad *pad, gpointer data);
+gboolean handleBus(GstBus *bus, GstMessage *msg, gpointer user_data);
+
+/* utils.cpp */
+std::string					ft_getline(void);
+std::vector<std::string>	ft_split(std::string input);
+int							ft_stoi(const std::string& str);
 
 #endif

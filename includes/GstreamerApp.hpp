@@ -2,6 +2,7 @@
 # define GSTREAMERAPP_HPP
 
 #include <gst/gst.h>
+#include <gst/video/videooverlay.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -11,23 +12,29 @@
 class GstreamerApp
 {
 	public:
-		GstreamerApp();
+		GstreamerApp(int ac, char **av);
 		GstreamerApp(GstreamerApp const& src);
 		GstreamerApp& operator=(GstreamerApp const& src);
 		~GstreamerApp();
 
 		void handleUser(void);
 	// private:
+		void setSource(int ac, char **av);
 		void setPipelineState(GstState state);
-		void setZoom(float zoom);
+		void setZoom(int zoomLevel);
+
+		int			width;
+		int			height;
 
 		GstElement	*pipeline;
 		GstElement	*source;
 		GstElement	*decoder;
-		GstElement	*cropFilter;
-		GstElement	*filter;
+		GstElement	*crop;
+		GstElement	*scale;
+		GstElement	*textoverlay;
+		GstElement	*capsfilter;
 		GstElement 	*sink;
-		GstBus		bus;
+		GstBus		*bus;
 };
 
 class ft_exception: public std::exception

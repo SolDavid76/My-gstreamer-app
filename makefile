@@ -17,7 +17,7 @@ NAME		=	a.out
 
 CC			=	g++
 
-CCFLAGS		=	-Wall -Wextra -std=c++11 `pkg-config --cflags gstreamer-1.0`
+CCFLAGS		=	-g3 -Wall -Wextra -std=c++11 `pkg-config --cflags gstreamer-1.0`
 
 LDFLAGS		=	`pkg-config --libs gstreamer-1.0`
 

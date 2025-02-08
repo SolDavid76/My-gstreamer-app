@@ -4,6 +4,7 @@ std::string ft_getline(void)
 {
 	std::string res;
 
+	std::cout << "$>";
 	if (std::getline(std::cin, res))
 		return (res);
 	else
@@ -29,7 +30,7 @@ int main(int ac, char **av)
 	try
 	{
 		gst_init(&ac, &av);
-		GstreamerApp app;
+		GstreamerApp app(ac, av);
 
 		app.setPipelineState(GST_STATE_PLAYING);
 		std::cout << "Pipeline is running..." << std::endl;

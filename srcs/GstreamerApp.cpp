@@ -76,7 +76,7 @@ void GstreamerApp::setSource(int ac, char **av)
 		this->source = gst_element_factory_make("v4l2src", "source");
 		g_object_set(source, "device", "/dev/video0", NULL);
 	}
-	else if (ac == 2)
+	else if (ac == 2 && checkFile(av[1]))
 	{
 		this->source = gst_element_factory_make("filesrc", "source");
 		g_object_set(source, "location", av[1], NULL);

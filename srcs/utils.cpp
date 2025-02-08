@@ -1,5 +1,16 @@
 #include "GstreamerApp.hpp"
 
+bool checkFile(const std::string& path)
+{
+	std::ifstream file(path);
+	if (file.good())
+	{
+		file.close();
+		return (true);
+	}
+	return (false);
+}
+
 std::string ft_getline(void)
 {
 	std::string res;

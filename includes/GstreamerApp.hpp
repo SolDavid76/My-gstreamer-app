@@ -5,6 +5,7 @@
 #include <gst/video/videooverlay.h>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
 #include <exception>
 #include <vector>
@@ -53,6 +54,7 @@ void on_pad_added(GstElement *element, GstPad *pad, gpointer data);
 gboolean handleBus(GstBus *bus, GstMessage *msg, gpointer user_data);
 
 /* utils.cpp */
+bool						checkFile(const std::string& path);
 std::string					ft_getline(void);
 std::vector<std::string>	ft_split(std::string input);
 int							ft_stoi(const std::string& str);
